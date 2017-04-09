@@ -32,4 +32,4 @@ artifacts:
 notifications:
   - provider: Slack
     incoming_webhook:
-      secure: M+uVE+sLWTTlZH2lfrCOFdQhkQAG7dMa4uE3Dso8lk19XLSGsWWy9cotGjalOqt2GnkSeYyqWTbnJy2GXAu8O8ClA4UqWZlvD+Cu0JDXgN8=
+      secure: 6wcIQdnN6haB2OhAPJVhAoMpU1lLRM7tHmVUCfv2RZ/3gZSBCm7wCBde4Bx7zNyv3Qw6//VrX97ZD3ejdoyxfmFaXBomoclkVKJRcvCyn3s=
