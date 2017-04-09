@@ -21,7 +21,9 @@ Tested on Windows 7, Windows 8.1 and Windows 10.
 
 For a fresh installation, download and extract the [latest release](https://github.com/crazy-max/slack-portable/releases/latest) where you want then run `slack-portable.exe`.
 
-If you have already installed Slack on your computer from the original setup, do the same thing as a fresh installation and run `slack-portable.exe` a first time. The data located in `%APPDATA%\Slack` will be move the `data` folder. Then you can remove Slack from your computer.
+If you have already installed Slack on your computer from the original setup, do the same thing as a fresh installation and run `slack-portable.exe` a first time.<br />
+The data located in `%APPDATA%\Slack` will be moved in the `data` folder.<br />
+Then you can remove Slack from your computer.
 
 ## Upgrade
 
