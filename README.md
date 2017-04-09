@@ -10,7 +10,7 @@
 
 ## About
 
-A single EXE made with [Go](https://golang.org/) to make [Slack](https://slack.com) portable on Windows systems.<br />
+A single EXE created with [Golang](https://golang.org/) to make [Slack](https://slack.com) portable on Windows systems.<br />
 Tested on Windows 7, Windows 8.1 and Windows 10.
 
 ## Requirements
