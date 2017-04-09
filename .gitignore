@@ -1,0 +1,15 @@
+# Eclipse
+/.settings
+/.buildpath
+/.project
+/.jsdtscope
+/*.launch
+
+# Jetbrains
+/.idea
+/*.iml
+
+# App
+/.dev
+/bin
+*.syso
