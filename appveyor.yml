@@ -28,3 +28,8 @@ build_script:
 
 artifacts:
   - path: 'bin\release\*'
+
+notifications:
+  - provider: Slack
+    incoming_webhook:
+      secure: M+uVE+sLWTTlZH2lfrCOFdQhkQAG7dMa4uE3Dso8lk19XLSGsWWy9cotGjalOqt2GnkSeYyqWTbnJy2GXAu8O8ClA4UqWZlvD+Cu0JDXgN8=
