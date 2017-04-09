@@ -28,4 +28,3 @@ build_script:
 
 artifacts:
   - path: 'bin\release\*'
-  - path: 'bin\go\slack-portable.exe'
