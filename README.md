@@ -11,8 +11,7 @@
 ## About
 
 A single EXE created with [Golang](https://golang.org/) to make [Slack](https://slack.com) portable on Windows systems.<br />
-Tested on Windows 7, Windows 8.1 and Windows 10.<br />
-And do not forget to star :star2: the project if you like it :heart_eyes:
+Tested on Windows 7, Windows 8.1 and Windows 10.
 
 ## Requirements
 
@@ -20,19 +19,24 @@ And do not forget to star :star2: the project if you like it :heart_eyes:
 
 ## Installation
 
-For a fresh installation, download and extract the [latest release](https://github.com/crazy-max/slack-portable/releases/latest) where you want then run `slack-portable.exe`.
+There are four different kinds of artifacts :
 
-If you have already installed Slack on your computer from the original setup, do the same thing as a fresh installation and run `slack-portable.exe` a first time.<br />
+* `slack-portable-x.x.x-x.7z` or `slack-portable-x.x.x-x.zip` : Full portable release of Slack.
+* `slack-portable.exe` : Only the portable binary (must be dropped in the slack folder near `slack.exe`)
+* `SlackSetup-x.x.x.exe` : The original setup from the [official website](https://slack.com/downloads/windows).
+
+For a **fresh installation**, download and extract the [latest release](https://github.com/crazy-max/slack-portable/releases/latest) named `slack-portable-x.x.x-x.7z` or `slack-portable-x.x.x-x.zip` where you want then run `slack-portable.exe`.
+
+If **you have already installed Slack** on your computer from the original setup, do the same thing as a fresh installation and run `slack-portable.exe` a first time.<br />
 The data located in `%APPDATA%\Slack` will be moved in the `data` folder.<br />
-Then you can remove Slack from your computer.
+Then you can [remove](https://support.microsoft.com/en-us/instantanswers/ce7ba88b-4e95-4354-b807-35732db36c4d/repair-or-remove-programs) Slack from your computer.
 
-## Upgrade
-
-Download and overwrite to the latest `slack-portable.exe`.
+**For an upgrade**, simply download and overwrite to the [latest slack-portable.exe](https://github.com/crazy-max/slack-portable/releases/latest).
 
 ## How can i help ?
 
-I'm a single developer and if you find this project useful, please consider making a donation.<br />
+We welcome all kinds of contributions :raised_hands:!<br />
+The most basic way to show your support is to star :star2: the project, or to raise issues :speech_balloon:<br />
 Any funds donated will be used to help further development on this project! :gift_heart:
 
 <p>
