@@ -17,7 +17,7 @@ import (
 )
 
 var log = logging.MustGetLogger("slack-portable")
-var logFormat = logging.MustStringFormatter(`%{time} %{level:.4s} - %{message}`)
+var logFormat = logging.MustStringFormatter(`%{time:2006-01-02 15:04:05} %{level:.4s} - %{message}`)
 
 func main() {
   // Current path
@@ -41,9 +41,10 @@ func main() {
 
   // Convert backslashes
   currentPath = path.Join(strings.Replace(string(currentPath), string(filepath.Separator), "/", -1))
-  log.Info("Current path: " + currentPath)
+  log.Info("Current path:" + currentPath)
 
   // Find app folder
+  log.Info("Lookup app folder in", currentPath)
   var appPath = ""
   rootFiles, _ := ioutil.ReadDir(currentPath)
   for _, f := range rootFiles {
@@ -56,7 +57,7 @@ func main() {
   if _, err := os.Stat(appPath); err == nil {
     log.Info("App path:", appPath)
   } else {
-    log.Warning("App path does not exist");
+    log.Error("App path does not exist");
   }
 
   // Init vars
@@ -72,28 +73,37 @@ func main() {
   log.Info("Symlink path:", symlinkPath)
   log.Info("Slack settings path:", slackSettingsPath)
 
-  // Check data folder
-  if _, err := os.Stat(symlinkPath); err == nil {
-
-    // Copy data folder
-    if _, err := os.Stat(dataPath); os.IsNotExist(err) {
-      os.Mkdir(dataPath, 777)
-      err = copyDir(symlinkPath, dataPath)
-      if err != nil {
-        log.Error("Copying data folder:", err)
-      }
+  // Create data folder
+  if _, err := os.Stat(dataPath); os.IsNotExist(err) {
+    log.Info("Create data folder...", dataPath)
+    err = os.Mkdir(dataPath, 777)
+    if err != nil {
+      log.Error("Create data folder:", err)
     }
+  }
 
-    // Rename old data folder if not a symlink
+  // Check old data folder
+  if _, err := os.Stat(symlinkPath); err == nil {
     fi, err := os.Lstat(symlinkPath)
     if err != nil {
       log.Error("Symlink lstat:", err)
     }
     if fi.Mode() & os.ModeSymlink != os.ModeSymlink {
+      // Copy old data folder
+      log.Info("Copy old data from", symlinkPath)
+      err = copyDir(symlinkPath, dataPath)
+      if err != nil {
+        log.Error("Copying old data folder:", err)
+      }
+
+      // Rename old data folder
+      log.Info("Chmod old data folder...")
       err = os.Chmod(symlinkPath, 0777)
       if err != nil {
-        log.Error("Chmod symlink:", err)
+        log.Error("Chmod old data folder:", err)
       }
+
+      log.Info("Rename old data folder to", symlinkPath + "_old")
       err = os.Rename(symlinkPath, symlinkPath + "_old")
       if err != nil {
         log.Error("Renaming old data folder:", err)
@@ -102,7 +112,7 @@ func main() {
   }
 
   // Create symlink
-  log.Info("Creating symlink...")
+  log.Info("Create symlink", symlinkPath)
   os.Remove(symlinkPath)
   cmd := exec.Command("cmd", "/c", "mklink", "/J", strings.Replace(symlinkPath, "/", "\\", -1), strings.Replace(dataPath, "/", "\\", -1))
   cmd.SysProcAttr = &syscall.SysProcAttr{HideWindow: true}
@@ -115,13 +125,17 @@ func main() {
   }*/
 
   // Check downloads folder
-  log.Info("Checking downloads folder...")
+  log.Info("Check downloads folder...")
   if _, err := os.Stat(downloadsPath); os.IsNotExist(err) {
-    os.Mkdir(downloadsPath, 777)
+    log.Info("Create download folder", downloadsPath)
+    err = os.Mkdir(downloadsPath, 777)
+    if err != nil {
+      log.Error("Create download folder:", err)
+    }
   }
 
   // Change slack settings
-  log.Info("Updating Slack settings...")
+  log.Info("Update Slack settings...")
   if _, err := os.Stat(slackSettingsPath); err == nil {
     rawSettings, err := ioutil.ReadFile(slackSettingsPath)
     if err == nil {
@@ -147,6 +161,7 @@ func main() {
   }
 
   // Launch slack
+  log.Info("Launch Slack...")
   cmd = exec.Command(slackExe)
   if err := cmd.Run(); err != nil {
     log.Error("Launching:", err)
