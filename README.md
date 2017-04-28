@@ -14,25 +14,22 @@
 A single EXE created with [Golang](https://golang.org/) to make [Slack](https://slack.com) portable on Windows systems.<br />
 Tested on Windows 7, Windows 8.1 and Windows 10.
 
-## Requirements
-
-* [Microsoft .NET Framework 4.5](https://www.microsoft.com/en-us/download/details.aspx?id=30653) for Slack.
-
 ## Installation
 
 There are four different kinds of artifacts :
 
-* `slack-portable-x.x.x-x.7z` or `slack-portable-x.x.x-x.zip` : Full portable release of Slack.
+* `slack-portable-x.x.x-x-setup.exe` : Full portable release of Slack as a setup. **Recommended way**!
+* `slack-portable-x.x.x-x.[7z|zip]` : Full portable release of Slack as an archive.
 * `slack-portable.exe` : Only the portable binary (must be dropped in the slack folder near `slack.exe`)
 * `SlackSetup-x.x.x.exe` : The original setup from the [official website](https://slack.com/downloads/windows).
 
-For a **fresh installation**, download and extract the [latest release](https://github.com/crazy-max/slack-portable/releases/latest) named `slack-portable-x.x.x-x.7z` or `slack-portable-x.x.x-x.zip` where you want then run `slack-portable.exe`.
+For a **fresh installation**, install `slack-portable-x.x.x-x-setup.exe` where you want then run `slack-portable.exe`.
 
-If **you have already installed Slack** on your computer from the original setup, do the same thing as a fresh installation and run `slack-portable.exe` a first time.<br />
+If **you have already installed Slack from the original setup**, do the same thing as a fresh installation and run `slack-portable.exe` a first time.<br />
 The data located in `%APPDATA%\Slack` will be moved in the `data` folder.<br />
 Then you can [remove](https://support.microsoft.com/en-us/instantanswers/ce7ba88b-4e95-4354-b807-35732db36c4d/repair-or-remove-programs) Slack from your computer.
 
-**For an upgrade**, simply download and overwrite to the [latest slack-portable.exe](https://github.com/crazy-max/slack-portable/releases/latest).
+**For an upgrade**, simply download and install the [latest setup](https://github.com/crazy-max/slack-portable/releases/latest).
 
 ## How can i help ?
 
