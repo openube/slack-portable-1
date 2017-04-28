@@ -26,8 +26,27 @@ func main() {
     log.Error("Current path:", err)
   }
 
+  // Logs folder
+  var logsPath = path.Join(currentPath, "logs")
+  if _, err := os.Stat(logsPath); os.IsNotExist(err) {
+    log.Info("Create logs folder", logsPath)
+    err = os.Mkdir(logsPath, 777)
+    if err != nil {
+      log.Error("Create logs folder:", err)
+    }
+  }
+
+  // Old behaviors
+  var oldLog = path.Join(currentPath, "slack-portable.log")
+  if _, err := os.Stat(oldLog); err == nil {
+    err = os.Remove(oldLog)
+    if err != nil {
+      log.Error("Remove old log:", err)
+    }
+  }
+
   // Log file
-  logfile, err := os.OpenFile(path.Join(currentPath, "slack-portable.log"), os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
+  logfile, err := os.OpenFile(path.Join(logsPath, "slack-portable.log"), os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
   if err != nil {
     log.Error("Log file:", err)
   }
@@ -39,6 +58,24 @@ func main() {
   log.Info("--------")
   log.Info("Starting slack-portable...")
 
+  // Purge logs
+  logsFolder, err := os.Open(logsPath)
+  if err != nil {
+    log.Error("Open logs folder:", err)
+  }
+  defer logsFolder.Close()
+  logsFiles, err := logsFolder.Readdir(-1)
+  if err != nil {
+    log.Error("Read logs folder:", err)
+  }
+  log.Info("Reading", logsPath)
+  for _, logsFile := range logsFiles {
+    if ! strings.HasPrefix(logsFile.Name(), "slack-portable") {
+      os.Remove(path.Join(logsPath, logsFile.Name()))
+      log.Info("Deleted", path.Join(logsPath, logsFile.Name()))
+    }
+  }
+
   // Convert backslashes
   currentPath = path.Join(strings.Replace(string(currentPath), string(filepath.Separator), "/", -1))
   log.Info("Current path:" + currentPath)
@@ -48,7 +85,7 @@ func main() {
   var appPath = ""
   rootFiles, _ := ioutil.ReadDir(currentPath)
   for _, f := range rootFiles {
-    if (strings.HasPrefix(f.Name(), "app-") && f.IsDir()) {
+    if strings.HasPrefix(f.Name(), "app-") && f.IsDir() {
       log.Info("App folder found:", f.Name())
       appPath = path.Join(currentPath, f.Name())
       break
@@ -61,7 +98,7 @@ func main() {
   }
 
   // Init vars
-  var slackExe = path.Join(currentPath, "slack.exe")
+  var slackExe = path.Join(appPath, "slack.exe")
   var dataPath = path.Join(currentPath, "data")
   var downloadsPath = path.Join(currentPath, "downloads")
   var symlinkPath = path.Clean(path.Join(os.Getenv("APPDATA"), "Slack"))
@@ -162,12 +199,18 @@ func main() {
 
   // Launch slack
   log.Info("Launch Slack...")
-  cmd = exec.Command(slackExe)
-  if err := cmd.Run(); err != nil {
-    log.Error("Launching:", err)
-  }
+  cmd = exec.Command(slackExe, "--log-file", "./")
+  cmd.Dir = logsPath
 
   defer logfile.Close()
+  cmd.Stdout = logfile
+  cmd.Stderr  = logfile
+
+  if err := cmd.Start(); err != nil {
+    log.Error("Cmd Start:", err)
+  }
+
+  cmd.Wait()
 }
 
 // src: https://gist.github.com/m4ng0squ4sh/92462b38df26839a3ca324697c8cba04
