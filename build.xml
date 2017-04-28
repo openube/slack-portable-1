@@ -161,6 +161,7 @@
   <property name="extract.path" value="${tmp.path}/extract"/>
   <property name="nupkg.path" value="${tmp.path}/nupkg"/>
   <property name="7za" value="${lib.path}/7zipextra/7za.exe"/>
+  <property name="rcedit" value="${lib.path}/rcedit/rcedit.exe"/>
   <property name="slacksetup.path" value="${tmp.path}/SlackSetup-${slacksetup.version}.exe"/>
 
   <!-- Build number -->
@@ -197,7 +198,7 @@
     <delete dir="${go.path}"/>
   </target>
 
-  <target name="load.lib" unless="is.lib.loaded" depends="load.lib.antcontrib, load.lib.sevenzip">
+  <target name="load.lib" unless="is.lib.loaded" depends="load.lib.antcontrib, load.lib.sevenzip, load.lib.rcedit">
     <var name="is.lib.loaded" value="true"/>
   </target>
 
@@ -223,6 +224,12 @@
         <unzip src="${lib.path}/7zipextra.zip" dest="${lib.path}/7zipextra"/>
       </then>
     </if>
+  </target>
+
+  <target name="load.lib.rcedit" unless="is.lib.loaded">
+    <echo message="Load Rcedit"/>
+    <mkdir dir="${lib.path}/rcedit"/>
+    <get dest="${lib.path}/rcedit/rcedit.exe" src="${rcedit.url}" skipexisting="true"/>
   </target>
 
   <target name="slack.download">
@@ -298,6 +305,13 @@
         ${slack.executionstub}"
       />
     </copy>
+
+    <copy todir="${build.path}" file="${extract.path}/Update.exe"/>
+    <exec executable="${rcedit}" failonerror="true" dir="${build.path}">
+      <arg value="${build.path}/Update.exe"/>
+      <arg value="--set-icon"/>
+      <arg value="${static.path}/app.ico"/>
+    </exec>
 
     <!--mkdir dir="${build.path}/packages/SquirrelTemp"/>
     <copy file="${extract.path}/RELEASES" todir="${build.path}/packages" overwrite="true"/>
