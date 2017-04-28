@@ -237,7 +237,7 @@
     <setSlackSetupUrl version="${slacksetup.version}"/>
     <echo message="* Version : ${slacksetup.version}"/>
     <echo message="* URL     : ${slacksetup.url}"/>
-    <get dest="${slacksetup.path}" src="${slacksetup.url}" skipexisting="true"/>
+    <get dest="${slacksetup.path}" src="${slacksetup.url}" skipexisting="${slacksetup.skip}"/>
   </target>
 
   <target name="slack.process">
