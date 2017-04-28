@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.6.0-beta189985592-9 (2017/04/28)
+
+* Add Slack logging (Issue #4)
+* Add ability to select the Slack version (Issue #3)
+* Slack crashes because of Update.exe missing (Issue #2)
+
 ## 2.6.0-beta189985592-7 (2017/04/27)
 
 * Not launched if data folder does not exists (Issue #1)
