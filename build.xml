@@ -155,6 +155,7 @@
   <property name="res.path" value="${project.basedir}/${res.dir}"/>
   <property name="go.path" value="${bin.path}/go"/>
   <property name="build.path" value="${bin.path}/build"/>
+  <property name="setup.path" location="${bin.path}/setup"/>
   <property name="release.path" value="${bin.path}/release"/>
   <property name="lib.path" value="${bin.path}/lib"/>
   <property name="tmp.path" value="${bin.path}/tmp"/>
@@ -162,6 +163,9 @@
   <property name="nupkg.path" value="${tmp.path}/nupkg"/>
   <property name="7za" value="${lib.path}/7zipextra/7za.exe"/>
   <property name="rcedit" value="${lib.path}/rcedit/rcedit.exe"/>
+  <property name="innoextract" location="${lib.path}/innoextract/innoextract.exe"/>
+  <property name="innosetup.path" location="${lib.path}/innosetup"/>
+  <property name="iscc" location="${innosetup.path}/app/ISCC.exe"/>
   <property name="slacksetup.path" value="${tmp.path}/SlackSetup-${slacksetup.version}.exe"/>
 
   <!-- Build number -->
@@ -181,6 +185,31 @@
     <copy file="${slacksetup.path}" tofile="${release.path}/SlackSetup-${app.version}.exe" overwrite="true"/>
     <sevenzip src="${build.path}/*" dest="${release.path}/${app.id}-${app.version}-${app.release}.7z" format="7z"/>
     <sevenzip src="${build.path}/*" dest="${release.path}/${app.id}-${app.version}-${app.release}.zip" format="zip"/>
+
+    <echo message="Build setup"/>
+    <copy todir="${setup.path}/src">
+      <fileset dir="${build.path}"/>
+    </copy>
+    <copy todir="${setup.path}">
+      <fileset dir="${res.path}">
+        <include name="setup*"/>
+        <include name="slack-portable.ico"/>
+      </fileset>
+    </copy>
+    <copy file="${project.basedir}/LICENSE" tofile="${setup.path}/license.txt"/>
+    <copy file="${res.path}/setup.iss" tofile="${setup.path}/setup.iss" overwrite="true">
+      <filterset>
+        <filter token="APP_ID" value="${app.id}"/>
+        <filter token="APP_NAME" value="${app.name}"/>
+        <filter token="APP_VERSION" value="${app.version}-${app.release}"/>
+        <filter token="APP_URL" value="${app.url}"/>
+      </filterset>
+    </copy>
+    <exec executable="${iscc}" dir="${setup.path}" failonerror="true">
+      <arg value="/O${release.path}"/>
+      <arg value="/F${app.id}-${app.version}-${app.release}-setup"/>
+      <arg value="setup.iss"/>
+    </exec>
   </target>
 
   <target name="init" unless="is.lib.loaded">
@@ -189,6 +218,8 @@
     <mkdir dir="${tmp.path}"/>
     <delete dir="${build.path}"/>
     <mkdir dir="${build.path}"/>
+    <delete dir="${setup.path}"/>
+    <mkdir dir="${setup.path}"/>
     <delete dir="${extract.path}"/>
     <mkdir dir="${extract.path}"/>
     <delete dir="${nupkg.path}"/>
@@ -198,7 +229,11 @@
     <delete dir="${go.path}"/>
   </target>
 
-  <target name="load.lib" unless="is.lib.loaded" depends="load.lib.antcontrib, load.lib.sevenzip, load.lib.rcedit">
+  <target name="load.lib" unless="is.lib.loaded" depends="
+      load.lib.antcontrib,
+      load.lib.sevenzip,
+      load.lib.rcedit,
+      load.lib.innosetup">
     <var name="is.lib.loaded" value="true"/>
   </target>
 
@@ -230,6 +265,39 @@
     <echo message="Load Rcedit"/>
     <mkdir dir="${lib.path}/rcedit"/>
     <get dest="${lib.path}/rcedit/rcedit.exe" src="${rcedit.url}" skipexisting="true"/>
+  </target>
+
+  <target name="load.lib.innoextract" unless="is.lib.loaded">
+    <echo message="Load innoextract"/>
+    <get dest="${lib.path}/innoextract.zip" src="${innoextract.url}" skipexisting="true"/>
+    <if>
+      <not><available file="${lib.path}/innoextract" type="dir"/></not>
+      <then>
+        <unzip src="${lib.path}/innoextract.zip" dest="${lib.path}/innoextract"/>
+      </then>
+    </if>
+  </target>
+
+  <target name="load.lib.innosetup" depends="load.lib.innoextract" unless="is.lib.loaded">
+    <echo message="Load InnoSetup"/>
+    <get dest="${lib.path}/innosetup.exe" src="${innosetup.url}" skipexisting="true"/>
+    <if>
+      <not><available file="${innosetup.path}/app" type="dir"/></not>
+      <then>
+        <exec executable="${innoextract}">
+          <arg value="-d"/>
+          <arg value="${innosetup.path}"/>
+          <arg value="${lib.path}/innosetup.exe"/>
+        </exec>
+      </then>
+    </if>
+    <fail message="File ${iscc} not found">
+      <condition>
+        <not>
+          <available file="${iscc}"/>
+        </not>
+      </condition>
+    </fail>
   </target>
 
   <target name="slack.download">
@@ -274,14 +342,14 @@
       <filter token="APP_DESC" value="${app.desc}"/>
       <filter token="APP_VERSION" value="${app.version}"/>
       <filter token="APP_RELEASE" value="${app.release}"/>
-      <filter token="APP_COPYRIGHT" value="${app.copyright}"/>
+      <filter token="APP_COPYRIGHT" value="${app.url}"/>
     </filterset>
     <echo message="APP_ID        : ${app.id}"/>
     <echo message="APP_NAME      : ${app.name}"/>
     <echo message="APP_DESC      : ${app.desc}"/>
     <echo message="APP_VERSION   : ${app.version}"/>
     <echo message="APP_RELEASE   : ${app.release}"/>
-    <echo message="APP_COPYRIGHT : ${app.copyright}"/>
+    <echo message="APP_COPYRIGHT : ${app.url}"/>
   </target>
 
   <target name="go.build">
