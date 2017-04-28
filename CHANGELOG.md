@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.6.0-beta189985592-10 (2017/04/28)
+
+* Create a setup for portable installation (Issue #6)
+
 ## 2.6.0-beta189985592-9 (2017/04/28)
 
 * Add Slack logging (Issue #4)
