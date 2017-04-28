@@ -98,6 +98,24 @@
     </sequential>
   </macrodef>
 
+  <macrodef name="setSlackSetupUrl">
+    <attribute name="version"/>
+    <sequential>
+      <if>
+        <equals arg1="@{version}" arg2="latest"/>
+        <then>
+          <property name="slacksetup.url" value="${slacksetup.latest}"/>
+          <property name="slacksetup.skip" value="false"/>
+        </then>
+        <else>
+          <property file="${project.basedir}/setup.properties" prefix="setup"/>
+          <property name="slacksetup.url" value="${setup.@{version}}" />
+          <property name="slacksetup.skip" value="true"/>
+        </else>
+      </if>
+    </sequential>
+  </macrodef>
+
   <macrodef name="assertdir">
     <attribute name="dir"/>
     <sequential>
@@ -142,8 +160,8 @@
   <property name="tmp.path" value="${bin.path}/tmp"/>
   <property name="extract.path" value="${tmp.path}/extract"/>
   <property name="nupkg.path" value="${tmp.path}/nupkg"/>
-  <property name="slacksetup" value="${tmp.path}/SlackSetup.exe"/>
   <property name="7za" value="${lib.path}/7zipextra/7za.exe"/>
+  <property name="slacksetup.path" value="${tmp.path}/SlackSetup-${slacksetup.version}.exe"/>
 
   <!-- Build number -->
   <condition property="app.release" value="${env.APPVEYOR_BUILD_NUMBER}"><isset property="env.APPVEYOR_BUILD_NUMBER"/></condition>
@@ -159,7 +177,7 @@
 
     <echo message="Creating release..."/>
     <copy file="${go.path}/${app.id}.exe" todir="${release.path}" overwrite="true"/>
-    <copy file="${slacksetup}" tofile="${release.path}/SlackSetup-${app.version}.exe" overwrite="true"/>
+    <copy file="${slacksetup.path}" tofile="${release.path}/SlackSetup-${app.version}.exe" overwrite="true"/>
     <sevenzip src="${build.path}/*" dest="${release.path}/${app.id}-${app.version}-${app.release}.7z" format="7z"/>
     <sevenzip src="${build.path}/*" dest="${release.path}/${app.id}-${app.version}-${app.release}.zip" format="zip"/>
   </target>
@@ -209,13 +227,15 @@
 
   <target name="slack.download">
     <echo message="Downloading Slack..."/>
-    <echo message="* URL     : ${slack.url}"/>
-    <get dest="${slacksetup}" src="${slack.url}" skipexisting="true"/>
+    <setSlackSetupUrl version="${slacksetup.version}"/>
+    <echo message="* Version : ${slacksetup.version}"/>
+    <echo message="* URL     : ${slacksetup.url}"/>
+    <get dest="${slacksetup.path}" src="${slacksetup.url}" skipexisting="true"/>
   </target>
 
   <target name="slack.process">
-    <echo message="Processing ${slacksetup}..."/>
-    <unsevenzip src="${slacksetup}" dest="${extract.path}"/>
+    <echo message="Processing ${slacksetup.path}..."/>
+    <unsevenzip src="${slacksetup.path}" dest="${extract.path}"/>
 
     <first id="first.nupkg">
       <fileset dir="${extract.path}" includes="*.nupkg"/>
