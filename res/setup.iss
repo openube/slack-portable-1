@@ -84,7 +84,7 @@ function NextButtonClick(PageId: Integer): Boolean;
 begin
   Result := True;
   if (PageId = wpSelectDir) then begin
-    if not isEmptyDir(ExpandConstant('{app}')) then begin
+    if DirExists(ExpandConstant('{app}')) and not isEmptyDir(ExpandConstant('{app}')) then begin
       IsUpgrade := True;
     end;
     if IsUpgrade and not FileExists(ExpandConstant('{app}\{#appId}.exe')) then begin
