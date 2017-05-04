@@ -1,6 +1,6 @@
 # Changelog
 
-## 2.6.0-beta189985592-11 (2017/05/03)
+## 2.6.0-beta189985592-12 (2017/05/03)
 
 * Error on first install with InnoSetup (Issue #7)
 
