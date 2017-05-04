@@ -19,7 +19,7 @@ Tested on Windows 7, Windows 8.1 and Windows 10.
 There are four different kinds of artifacts :
 
 * `slack-portable-x.x.x-x-setup.exe` : Full portable release of Slack as a setup. **Recommended way**!
-* `slack-portable-x.x.x-x.[7z|zip]` : Full portable release of Slack as an archive.
+* `slack-portable-x.x.x-x.{7z,zip}` : Full portable release of Slack as an archive.
 * `slack-portable.exe` : Only the portable binary (must be dropped in the slack folder near `slack.exe`)
 * `SlackSetup-x.x.x.exe` : The original setup from the [official website](https://slack.com/downloads/windows).
 
