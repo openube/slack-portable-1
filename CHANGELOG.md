@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.6.0-beta189985592-11 (2017/05/03)
+
+* Error on first install with InnoSetup (Issue #7)
+
 ## 2.6.0-beta189985592-10 (2017/04/28)
 
 * Create a setup for portable installation (Issue #6)
