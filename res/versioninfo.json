@@ -11,15 +11,15 @@
 	{
 		"Comments": "",
 		"CompanyName": "",
-		"FileDescription": "Make Slack portable on Windows",
-		"FileVersion": "2.6.0-beta189985592.0",
+		"FileDescription": "@APP_DESC@",
+		"FileVersion": "@APP_VERSION@.@APP_RELEASE@",
 		"InternalName": "",
-		"LegalCopyright": "https://github.com/crazy-max/slack-portable",
+		"LegalCopyright": "@APP_COPYRIGHT@",
 		"LegalTrademarks": "",
-		"OriginalFilename": "slack-portable.exe",
+		"OriginalFilename": "@APP_ID@.exe",
 		"PrivateBuild": "",
-		"ProductName": "Slack Portable",
-		"ProductVersion": "2.6.0-beta189985592.0",
+		"ProductName": "@APP_NAME@",
+		"ProductVersion": "@APP_VERSION@.@APP_RELEASE@",
 		"SpecialBuild": ""
 	},
 	"VarFileInfo":
