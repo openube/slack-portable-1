@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.6.0-beta189985592-13 (2017/05/14)
+
+* Provide the nupkg file in the release
+* Add Go report card
+* Add Glide dependency manager for Go
+* Standard code organization
+
 ## 2.6.0-beta189985592-12 (2017/05/03)
 
 * Error on first install with InnoSetup (Issue #7)

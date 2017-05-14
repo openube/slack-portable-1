@@ -4,6 +4,7 @@
   <a href="https://github.com/crazy-max/slack-portable/releases/latest"><img src="https://img.shields.io/github/release/crazy-max/slack-portable.svg?style=flat-square" alt="GitHub release"></a>
   <a href="https://github.com/crazy-max/slack-portable/releases/latest"><img src="https://img.shields.io/github/downloads/crazy-max/slack-portable/total.svg?style=flat-square" alt="Total downloads"></a>
   <a href="https://ci.appveyor.com/project/crazy-max/slack-portable"><img src="https://img.shields.io/appveyor/ci/crazy-max/slack-portable.svg?style=flat-square" alt="AppVeyor"></a>
+  <a href="https://goreportcard.com/report/github.com/crazy-max/slack-portable"><img src="https://goreportcard.com/badge/github.com/crazy-max/slack-portable?style=flat-square" alt="Go Report"></a>
   <a href="https://www.codacy.com/app/crazy-max/slack-portable"><img src="https://img.shields.io/codacy/grade/8beee2b3463842f6ad27da362666e75c.svg?style=flat-square" alt="Code Quality"></a>
   <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=4Y9DDQ8LDLMTL"><img src="https://img.shields.io/badge/donate-paypal-blue.svg?style=flat-square" alt="Donate Paypal"></a>
   <a href="https://flattr.com/submit/auto?user_id=crazymax&url=https://github.com/crazy-max/slack-portable"><img src="https://img.shields.io/badge/flattr-this-green.svg?style=flat-square" alt="Flattr this!"></a>
@@ -16,12 +17,13 @@ Tested on Windows 7, Windows 8.1 and Windows 10.
 
 ## Installation
 
-There are four different kinds of artifacts :
+There are 5 different kinds of artifacts :
 
 * `slack-portable-x.x.x-x-setup.exe` : Full portable release of Slack as a setup. **Recommended way**!
 * `slack-portable-x.x.x-x.{7z,zip}` : Full portable release of Slack as an archive.
 * `slack-portable.exe` : Only the portable binary (must be dropped in the slack folder near `slack.exe`)
 * `SlackSetup-x.x.x.exe` : The original setup from the [official website](https://slack.com/downloads/windows).
+* `slack-x.x.x-full.nupkg` : The original NUPKG file extracted from the original setup.
 
 For a **fresh installation**, install `slack-portable-x.x.x-x-setup.exe` where you want then run `slack-portable.exe`.
 
