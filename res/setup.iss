@@ -28,6 +28,7 @@ SolidCompression=yes
 DefaultDirName={sd}\{#appId}
 CreateAppDir=yes
 Uninstallable=no
+PrivilegesRequired=lowest
 
 VersionInfoCompany={#appPublisher}
 VersionInfoCopyright={#appPublisher} {#currentYear}
