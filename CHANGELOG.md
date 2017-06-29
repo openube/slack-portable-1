@@ -3,6 +3,7 @@
 ## 2.6.3-15 (2017/06/29)
 
 * Upgrade to Slack 2.6.3
+* Admin privileges not required for Setup
 
 ## 2.6.2-14 (2017/05/24)
 
