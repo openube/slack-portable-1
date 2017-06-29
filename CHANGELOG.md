@@ -1,9 +1,18 @@
 # Changelog
 
+## 2.6.3-15 (2017/06/29)
+
+* Upgrade to Slack 2.6.3
+
+## 2.6.2-14 (2017/05/24)
+
+* Upgrade to Slack 2.6.2
+* Download Glide as an external lib
+
 ## 2.6.0-beta189985592-13 (2017/05/14)
 
 * Provide the nupkg file in the release
-* Add Go report card
+* Add Go report card 
 * Add Glide dependency manager for Go
 * Standard code organization
 
