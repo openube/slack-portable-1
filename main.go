@@ -1,5 +1,5 @@
 //go:generate go get -v github.com/josephspurrier/goversioninfo/...
-//go:generate goversioninfo -icon=slack-portable.ico
+//go:generate goversioninfo -icon=res/app-portable.ico
 package main
 
 import (
@@ -15,6 +15,13 @@ import (
 	"syscall"
 
 	"github.com/op/go-logging"
+)
+
+const (
+	NAME            = "slack-portable"
+	APP_NAME        = "Slack"
+	APP_DATA_FOLDER = "slack"
+	APP_PROCESS     = "slack.exe"
 )
 
 var log = logging.MustGetLogger("slack-portable")
@@ -37,17 +44,8 @@ func main() {
 		}
 	}
 
-	// Old behaviors
-	var oldLog = path.Join(currentPath, "slack-portable.log")
-	if _, err := os.Stat(oldLog); err == nil {
-		err = os.Remove(oldLog)
-		if err != nil {
-			log.Error("Remove old log:", err)
-		}
-	}
-
 	// Log file
-	logfile, err := os.OpenFile(path.Join(logsPath, "slack-portable.log"), os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
+	logfile, err := os.OpenFile(path.Join(logsPath, NAME+".log"), os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
 	if err != nil {
 		log.Error("Log file:", err)
 	}
@@ -57,7 +55,8 @@ func main() {
 	logBackendFile := logging.NewBackendFormatter(logging.NewLogBackend(logfile, "", 0), logFormat)
 	logging.SetBackend(logBackendStdout, logBackendFile)
 	log.Info("--------")
-	log.Info("Starting slack-portable...")
+	log.Info("Starting " + NAME + "...")
+	log.Info("Current path:", currentPath)
 
 	// Purge logs
 	logsFolder, err := os.Open(logsPath)
@@ -71,15 +70,11 @@ func main() {
 	}
 	log.Info("Reading", logsPath)
 	for _, logsFile := range logsFiles {
-		if !strings.HasPrefix(logsFile.Name(), "slack-portable") {
+		if !strings.HasPrefix(logsFile.Name(), NAME) {
 			os.Remove(path.Join(logsPath, logsFile.Name()))
 			log.Info("Deleted", path.Join(logsPath, logsFile.Name()))
 		}
 	}
-
-	// Convert backslashes
-	currentPath = path.Join(strings.Replace(string(currentPath), string(filepath.Separator), "/", -1))
-	log.Info("Current path:" + currentPath)
 
 	// Find app folder
 	log.Info("Lookup app folder in", currentPath)
@@ -99,13 +94,12 @@ func main() {
 	}
 
 	// Init vars
-	var slackExe = path.Join(appPath, "slack.exe")
+	var appExe = path.Join(appPath, APP_PROCESS)
 	var dataPath = path.Join(currentPath, "data")
 	var downloadsPath = path.Join(currentPath, "downloads")
-	var symlinkPath = path.Clean(path.Join(os.Getenv("APPDATA"), "Slack"))
-	//var symlinkPath = path.Join(currentPath, "data2")
+	var symlinkPath = path.Clean(path.Join(os.Getenv("APPDATA"), APP_DATA_FOLDER))
 	var slackSettingsPath = path.Join(dataPath, "storage", "slack-settings")
-	log.Info("Slack executable:", slackExe)
+	log.Info("App executable:", appExe)
 	log.Info("Data path:", dataPath)
 	log.Info("Downloads path:", downloadsPath)
 	log.Info("Symlink path:", symlinkPath)
@@ -198,9 +192,9 @@ func main() {
 		log.Warning("Slack settings not found in:", slackSettingsPath)
 	}
 
-	// Launch slack
-	log.Info("Launch Slack...")
-	cmd = exec.Command(slackExe, "--log-file", "./")
+	// Launch
+	log.Infof("Launch %s...", APP_NAME)
+	cmd = exec.Command(appExe, "--log-file", "./")
 	cmd.Dir = logsPath
 
 	defer logfile.Close()

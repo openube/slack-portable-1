@@ -20,7 +20,7 @@ WizardSmallImageFile=setup-mini.bmp
 DisableWelcomePage=no
 ShowLanguageDialog=yes
 LicenseFile=license.txt
-SetupIconFile=slack-portable.ico
+SetupIconFile=app-portable.ico
 
 Compression=lzma/max
 SolidCompression=yes
@@ -44,7 +44,7 @@ Source: "src\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createall
 Type: filesandordirs; Name: "{app}\app-*"
 Type: filesandordirs; Name: "{app}\logs\*"
 Type: filesandordirs; Name: "{app}\packages"
-Type: filesandordirs; Name: "{app}\SquirrelSetup.log"
+Type: filesandordirs; Name: "{app}\*.log"
 
 [Run]
 Filename: {app}\{#appId}.exe; Description: Run {#appName}; Flags: nowait postinstall skipifsilent
