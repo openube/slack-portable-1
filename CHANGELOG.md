@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.7.0-17 (2017/08/09)
+
+* Upgrade to Slack 2.7.0
+* ia32 releases now included
+* Small refactoring
+
 ## 2.6.5-16 (2017/07/13)
 
 * Upgrade to Slack 2.6.5
