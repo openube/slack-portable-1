@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.7.1-20 (2017/08/26)
+
+* Upgrade to Go 1.9
+* Add support guidelines
+
 ## 2.7.1-19 (2017/08/16)
 
 * Upgrade to Slack 2.7.1
