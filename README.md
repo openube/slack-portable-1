@@ -27,8 +27,7 @@ There are different kinds of artifacts :
 
 For a **fresh installation**, install `slack-portable-{ia32,x64}-x.x.x-x-setup.exe` where you want then run `slack-portable.exe`.
 
-If **you have already installed Slack from the original setup**, do the same thing as a fresh installation and run `slack-portable.exe` a first time.<br />
-The data located in `%APPDATA%\Slack` will be moved in the `data` folder.<br />
+If **you have already installed Slack from the original setup**, do the same thing as a fresh installation and move the data located in `%APPDATA%\slack` to `data\AppData\Roaming\slack` then run `slack-portable.exe`.<br />
 Then you can [remove](https://support.microsoft.com/en-us/instantanswers/ce7ba88b-4e95-4354-b807-35732db36c4d/repair-or-remove-programs) Slack from your computer.
 
 **For an upgrade**, simply download and install the [latest setup](https://github.com/crazy-max/slack-portable/releases/latest).
