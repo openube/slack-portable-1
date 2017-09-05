@@ -1,5 +1,16 @@
 # Changelog
 
+## 2.7.1-22 (2017/09/05)
+
+* New logger
+* Override USERPROFILE env var instead of using symlink to APPDATA to store data
+* Do not migrate old data folder from APPDATA
+* Reduce dependencies and system calls to avoid heuristic detection
+
+> :warning: **UPGRADE NOTES**
+> * Move the content of `data\*` in `data\AppData\Roaming\slack\`
+> * Remove symlink `%APPDATA%\slack`
+
 ## 2.7.1-21 (2017/08/26)
 
 * Upgrade to Go 1.9
