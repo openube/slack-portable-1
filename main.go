@@ -57,16 +57,16 @@ func main() {
 	if err != nil {
 		logger.Error("Read logs folder:", err)
 	}
-	logger.Info("Reading", logsPath)
+	logger.Infof("Reading %s...", logsPath)
 	for _, logsFile := range logsFiles {
 		if !strings.HasPrefix(logsFile.Name(), NAME) {
 			os.Remove(pathJoin(logsPath, logsFile.Name()))
-			logger.Info("Deleted", pathJoin(logsPath, logsFile.Name()))
+			logger.Infof("Deleted %s", pathJoin(logsPath, logsFile.Name()))
 		}
 	}
 
 	// Find app folder
-	logger.Infof("Lookup app folder in: %s", currentPath)
+	logger.Infof("Lookup app folder in %s", currentPath)
 	var appPath = ""
 	rootFiles, _ := ioutil.ReadDir(currentPath)
 	for _, f := range rootFiles {
@@ -123,6 +123,7 @@ func main() {
 
 			jsonMapSettings["resourcePath"] = pathJoin(appPath, "resources", "app.asar")
 			jsonMapSettings["PrefSSBFileDownloadPath"] = downloadsPath
+			jsonMapSettings["notificationMethod"] = "html"
 			logger.Info("New settings:", jsonMapSettings)
 
 			jsonSettings, err := json.Marshal(jsonMapSettings)
@@ -135,7 +136,7 @@ func main() {
 			}
 		}
 	} else {
-		logger.Errorf("Slack settings not found in: %s", slackSettingsPath)
+		logger.Errorf("Slack settings not found in %s", slackSettingsPath)
 	}
 
 	// Launch
