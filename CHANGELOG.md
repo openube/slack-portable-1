@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.8.0-23 (2017/09/14)
+
+* Upgrade to Slack 2.8.0
+* New instance opened with Windows notification method (Issue #8)
+
 ## 2.7.1-22 (2017/09/05)
 
 * New logger
