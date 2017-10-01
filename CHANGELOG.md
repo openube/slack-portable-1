@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.8.1-24 (2017/10/01)
+
+* Upgrade to Slack 2.8.1
+
 ## 2.8.0-23 (2017/09/14)
 
 * Upgrade to Slack 2.8.0
