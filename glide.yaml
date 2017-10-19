@@ -1,7 +1,0 @@
-package: github.com/crazy-max/slack-portable
-homepage: https://github.com/crazy-max/slack-portable
-license: MIT
-owners:
-- name: crazy-max
-import:
-- package: github.com/google/logger
