@@ -6,8 +6,7 @@
   <a href="https://ci.appveyor.com/project/crazy-max/slack-portable"><img src="https://img.shields.io/appveyor/ci/crazy-max/slack-portable.svg?style=flat-square" alt="AppVeyor"></a>
   <a href="https://goreportcard.com/report/github.com/crazy-max/slack-portable"><img src="https://goreportcard.com/badge/github.com/crazy-max/slack-portable?style=flat-square" alt="Go Report"></a>
   <a href="https://www.codacy.com/app/crazy-max/slack-portable"><img src="https://img.shields.io/codacy/grade/8beee2b3463842f6ad27da362666e75c.svg?style=flat-square" alt="Code Quality"></a>
-  <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=4Y9DDQ8LDLMTL"><img src="https://img.shields.io/badge/donate-paypal-blue.svg?style=flat-square" alt="Donate Paypal"></a>
-  <a href="https://flattr.com/submit/auto?user_id=crazymax&url=https://github.com/crazy-max/slack-portable"><img src="https://img.shields.io/badge/flattr-this-green.svg?style=flat-square" alt="Flattr this!"></a>
+  <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=4Y9DDQ8LDLMTL"><img src="https://img.shields.io/badge/donate-paypal-7057ff.svg?style=flat-square" alt="Donate Paypal"></a>
 </p>
 
 ## About
@@ -38,14 +37,7 @@ We welcome all kinds of contributions :raised_hands:!<br />
 The most basic way to show your support is to star :star2: the project, or to raise issues :speech_balloon:<br />
 Any funds donated will be used to help further development on this project! :gift_heart:
 
-<p>
-  <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=4Y9DDQ8LDLMTL">
-    <img src="https://github.com/crazy-max/slack-portable/blob/master/res/paypal.png" alt="Donate Paypal">
-  </a>
-  <a href="https://flattr.com/submit/auto?user_id=crazymax&url=https://github.com/crazy-max/slack-portable">
-    <img src="https://github.com/crazy-max/slack-portable/blob/master/res/flattr.png" alt="Flattr this!">
-  </a>
-</p>
+[![Donate Paypal](https://raw.githubusercontent.com/crazy-max/slack-portable/master/res/paypal.png)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=4Y9DDQ8LDLMTL)
 
 ## License
 
