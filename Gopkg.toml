@@ -1,7 +1,8 @@
 [metadata]
-package = "github.com/crazy-max/slack-portable"
-homepage = "https://github.com/crazy-max/slack-portable"
+package = "github.com/portapps/slack-portable"
+homepage = "https://github.com/portapps/slack-portable"
 license = "MIT"
 
 [[constraint]]
-  name = "github.com/google/logger"
+  branch = "master"
+  name = "github.com/portapps/portapps"
