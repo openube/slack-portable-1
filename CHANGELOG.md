@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.9.0-26 (2017/11/19)
+
+* Upgrade to Slack 2.9.0
+* Move repository to [Portapps](https://github.com/portapps) org
+* Switch to [Golang Dep](https://github.com/golang/dep) as dependency manager
+* Upgrade to Go 1.9.1
+
 ## 2.8.2-25 (2017/10/19)
 
 * Upgrade to Slack 2.8.2
