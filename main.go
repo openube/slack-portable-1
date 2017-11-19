@@ -11,7 +11,7 @@ import (
 )
 
 func init() {
-	App.Id = "slack-portable"
+	App.ID = "slack-portable"
 	App.Name = "Slack"
 	Init()
 }
@@ -54,6 +54,6 @@ func main() {
 		Log.Errorf("Slack settings not found in %s", slackSettingsPath)
 	}
 
-	OverrideUserprofilePath(App.RootDataPath)
+	OverrideEnv("USERPROFILE", App.RootDataPath)
 	Launch()
 }
