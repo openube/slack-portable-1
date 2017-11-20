@@ -11,24 +11,29 @@ import (
 )
 
 func init() {
-	App.ID = "slack-portable"
-	App.Name = "Slack"
+	Papp.ID = "slack-portable"
+	Papp.Name = "Slack"
 	Init()
 }
 
 func main() {
-	App.MainPath = FindElectronMainFolder("app-")
-	App.DataPath = CreateFolder(PathJoin(App.RootDataPath, "AppData", "Roaming", "Slack"))
-	App.Process = RootPathJoin("Slack.exe")
-	App.Args = nil
-	App.WorkingDir = App.MainPath
+	Papp.AppPath = AppPathJoin("app")
+	Papp.DataPath = AppPathJoin("data")
+
+	electronBinPath := PathJoin(Papp.AppPath, FindElectronAppFolder("app-", Papp.AppPath))
+	roamingPath := CreateFolder(PathJoin(Papp.DataPath, "AppData", "Roaming", "Slack"))
+	Log.Infof("Roaming path: %s", roamingPath)
+
+	Papp.Process = PathJoin(Papp.AppPath, "Slack.exe")
+	Papp.Args = nil
+	Papp.WorkingDir = electronBinPath
 
 	// Downloads folder
-	downloadsPath := CreateFolder(PathJoin(App.Path, "downloads"))
+	downloadsPath := CreateFolder(PathJoin(Papp.Path, "downloads"))
 
 	// Update slack settings
 	Log.Info("Update Slack settings...")
-	slackSettingsPath := PathJoin(App.DataPath, "storage", "slack-settings")
+	slackSettingsPath := PathJoin(roamingPath, "storage", "slack-settings")
 	if _, err := os.Stat(slackSettingsPath); err == nil {
 		rawSettings, err := ioutil.ReadFile(slackSettingsPath)
 		if err == nil {
@@ -36,7 +41,7 @@ func main() {
 			json.Unmarshal(rawSettings, &jsonMapSettings)
 			Log.Info("Current settings:", jsonMapSettings)
 
-			jsonMapSettings["resourcePath"] = PathJoin(App.MainPath, "resources", "app.asar")
+			jsonMapSettings["resourcePath"] = PathJoin(electronBinPath, "resources", "app.asar")
 			jsonMapSettings["PrefSSBFileDownloadPath"] = downloadsPath
 			jsonMapSettings["notificationMethod"] = "html"
 			Log.Info("New settings:", jsonMapSettings)
@@ -54,6 +59,6 @@ func main() {
 		Log.Errorf("Slack settings not found in %s", slackSettingsPath)
 	}
 
-	OverrideEnv("USERPROFILE", App.RootDataPath)
+	OverrideEnv("USERPROFILE", Papp.DataPath)
 	Launch()
 }
