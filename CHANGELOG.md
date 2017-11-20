@@ -1,12 +1,5 @@
 # Changelog
 
-## 2.9.0-27 (2017/11/20)
-
-* Move app to a subfolder
-
-> :warning: **UPGRADE NOTES**
-> * Delete all files and folders in root folder except `data` folder.
-
 ## 2.9.0-26 (2017/11/19)
 
 * Upgrade to Slack 2.9.0
