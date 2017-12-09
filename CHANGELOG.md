@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.0.0-28 (2017/12/09)
+
+* Upgrade to Slack 3.0.0
+
 ## 2.9.0-27 (2017/11/23)
 
 * Move app to a subfolder
