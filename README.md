@@ -25,12 +25,21 @@ There are different kinds of artifacts :
 * `SlackSetup-{ia32,x64}-x.x.x.exe` : The original setup from the [official website](https://slack.com/downloads/windows).
 * `slack-{ia32,x64}-x.x.x-full.nupkg` : The original NUPKG file extracted from the original setup.
 
-For a **fresh installation**, install `slack-portable-{ia32,x64}-x.x.x-x-setup.exe` where you want then run `slack-portable.exe`.
+### Fresh installation
 
-If **you have already installed Slack from the original setup**, do the same thing as a fresh installation and move the data located in `%APPDATA%\slack` to `data\AppData\Roaming\slack` then run `slack-portable.exe`.<br />
-Then you can [remove](https://support.microsoft.com/en-us/instantanswers/ce7ba88b-4e95-4354-b807-35732db36c4d/repair-or-remove-programs) Slack from your computer.
+Install `slack-portable-{ia32,x64}-x.x.x-x-setup.exe` where you want then run `slack-portable.exe`.
 
-**For an upgrade**, simply download and install the [latest setup](https://github.com/portapps/slack-portable/releases/latest).
+### App already installed
+
+If you have already installed Slack from the original setup, do the same thing as a fresh installation and :
+
+* Move data located in `%APPDATA%\Slack\*` to `data` folder.
+
+Run `slack-portable.exe` and then you can [remove](https://support.microsoft.com/en-us/instantanswers/ce7ba88b-4e95-4354-b807-35732db36c4d/repair-or-remove-programs) Slack from your computer.
+
+### Upgrade
+
+For an upgrade, simply download and install the [latest setup](https://github.com/portapps/slack-portable/releases/latest).
 
 ## How can i help ?
 

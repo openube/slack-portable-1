@@ -1,5 +1,13 @@
 # Changelog
 
+## 3.0.3-30 (2018/01/13)
+
+* Rebuild electron.asar to push data directly in `data` subfolder
+* No need to override USERPROFILE environment variable anymore
+
+> :warning: **UPGRADE NOTES**
+> * Move everything in `data\AppData\Roaming\slack\*` to `data` folder and remove folder `data\AppData`.
+
 ## 3.0.3-29 (2018/01/12)
 
 * Upgrade to Slack 3.0.3

@@ -21,8 +21,6 @@ func main() {
 	Papp.DataPath = AppPathJoin("data")
 
 	electronBinPath := PathJoin(Papp.AppPath, FindElectronAppFolder("app-", Papp.AppPath))
-	roamingPath := CreateFolder(PathJoin(Papp.DataPath, "AppData", "Roaming", "Slack"))
-	Log.Infof("Roaming path: %s", roamingPath)
 
 	Papp.Process = PathJoin(Papp.AppPath, "Slack.exe")
 	Papp.Args = nil
@@ -33,7 +31,7 @@ func main() {
 
 	// Update slack settings
 	Log.Info("Update Slack settings...")
-	slackSettingsPath := PathJoin(roamingPath, "storage", "slack-settings")
+	slackSettingsPath := PathJoin(Papp.DataPath, "storage", "slack-settings")
 	if _, err := os.Stat(slackSettingsPath); err == nil {
 		rawSettings, err := ioutil.ReadFile(slackSettingsPath)
 		if err == nil {
@@ -59,6 +57,5 @@ func main() {
 		Log.Errorf("Slack settings not found in %s", slackSettingsPath)
 	}
 
-	OverrideEnv("USERPROFILE", Papp.DataPath)
 	Launch()
 }
