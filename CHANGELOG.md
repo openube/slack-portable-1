@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.0.5-31 (2018/01/21)
+
+* Upgrade to Slack 3.0.5
+
 ## 3.0.3-30 (2018/01/13)
 
 * Rebuild electron.asar to push data directly in `data` subfolder
