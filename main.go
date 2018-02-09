@@ -57,5 +57,5 @@ func main() {
 		Log.Errorf("Slack settings not found in %s", slackSettingsPath)
 	}
 
-	Launch()
+	Launch(os.Args[1:])
 }

@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.0.5-32 (2018/02/09)
+
+* Ability to pass custom args to the portable process
+
 ## 3.0.5-31 (2018/01/21)
 
 * Upgrade to Slack 3.0.5
