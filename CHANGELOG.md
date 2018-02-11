@@ -1,5 +1,12 @@
 # Changelog
 
+## 3.0.5-33 (2018/02/11)
+
+* Move ia32/x64 to win32/win64 for arch def
+* Remove nupkg file
+* Add portapp.json file
+* Uncheck run app in setup
+
 ## 3.0.5-32 (2018/02/09)
 
 * Ability to pass custom args to the portable process

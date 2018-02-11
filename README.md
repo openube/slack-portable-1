@@ -19,15 +19,14 @@ Tested on Windows 7, Windows 8.1 and Windows 10.
 
 There are different kinds of artifacts :
 
-* `slack-portable-{ia32,x64}-x.x.x-x-setup.exe` : Full portable release of Slack as a setup. **Recommended way**!
-* `slack-portable-{ia32,x64}-x.x.x-x.7z` : Full portable release of Slack as a 7z archive.
-* `slack-portable-{ia32,x64}.exe` : Only the portable binary (must be renamed `slack-portable.exe`)
-* `SlackSetup-{ia32,x64}-x.x.x.exe` : The original setup from the [official website](https://slack.com/downloads/windows).
-* `slack-{ia32,x64}-x.x.x-full.nupkg` : The original NUPKG file extracted from the original setup.
+* `slack-portable-win{32,64}-x.x.x-x-setup.exe` : Full portable release of Slack as a setup. **Recommended way**!
+* `slack-portable-win{32,64}-x.x.x-x.7z` : Full portable release of Slack as a 7z archive.
+* `slack-portable-win{32,64}.exe` : Only the portable binary (must be renamed `slack-portable.exe`)
+* `SlackSetup-win{32,64}-x.x.x.exe` : The original setup from the [official website](https://slack.com/downloads/windows).
 
 ### Fresh installation
 
-Install `slack-portable-{ia32,x64}-x.x.x-x-setup.exe` where you want then run `slack-portable.exe`.
+Install `slack-portable-win{32,64}-x.x.x-x-setup.exe` where you want then run `slack-portable.exe`.
 
 ### App already installed
 
