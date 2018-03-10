@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.1.0-34 (2018/03/10)
+
+* Upgrade to Slack 3.1.0
+
 ## 3.0.5-33 (2018/02/11)
 
 * Move ia32/x64 to win32/win64 for arch def
