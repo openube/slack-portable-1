@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.3.1-38 (2018/09/01)
+
+* Upgrade to Slack 3.3.1
+
 ## 3.3.0-37 (2018/08/15)
 
 * Upgrade to Slack 3.3.0
