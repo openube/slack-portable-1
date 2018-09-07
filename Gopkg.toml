@@ -1,8 +1,0 @@
-[metadata]
-package = "github.com/portapps/slack-portable"
-homepage = "https://github.com/portapps/slack-portable"
-license = "MIT"
-
-[[constraint]]
-  branch = "master"
-  name = "github.com/portapps/portapps"
