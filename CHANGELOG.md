@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.3.3-39 (2018/10/02)
+
+* Upgrade to Slack 3.3.3
+* Upgrade to Go 1.11
+* Use [go mod](https://golang.org/cmd/go/#hdr-Module_maintenance) instead of `dep`
+
 ## 3.3.1-38 (2018/09/01)
 
 * Upgrade to Slack 3.3.1
