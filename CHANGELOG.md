@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.3.3-40 (2018/10/24)
+
+* Fix Windows desktop notifications
+
 ## 3.3.3-39 (2018/10/02)
 
 * Upgrade to Slack 3.3.3
