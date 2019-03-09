@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.3.8-17 (2019/03/09)
+
+* Upgrade to Slack 3.3.8
+* Portapps 1.20.2
+
 ## 3.3.7-41 (2019/01/18)
 
 * Upgrade to Slack 3.3.7
