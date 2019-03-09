@@ -1,4 +1,4 @@
-<p align="center"><a href="https://portapps.io/app/slack-portable" target="_blank"><img width="100" src="https://github.com/portapps/slack-portable/blob/master/res/papp.png"></a></p>
+<p align="center"><a href="https://portapps.io/app/slack-portable/" target="_blank"><img width="100" src="https://github.com/portapps/slack-portable/blob/master/res/papp.png"></a></p>
 
 <p align="center">
   <a href="https://portapps.io/app/slack-portable/#download"><img src="https://img.shields.io/github/release/portapps/slack-portable.svg?style=flat-square" alt="GitHub release"></a>
@@ -12,7 +12,7 @@
 ## About
 
 [Slack](https://slack.com) portable app made with 🚀 [Portapps](https://portapps.io).<br />
-Documentation and downloads can be found on https://portapps.io/app/slack-portable
+Documentation and downloads can be found on https://portapps.io/app/slack-portable/
 
 ## How can I help ?
 
