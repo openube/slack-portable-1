@@ -20,7 +20,7 @@ import (
 func bindataRead(data []byte, name string) ([]byte, error) {
 	gz, err := gzip.NewReader(bytes.NewBuffer(data))
 	if err != nil {
-		return nil, fmt.Errorf("Read %q: %v", name, err)
+		return nil, fmt.Errorf("read %q: %v", name, err)
 	}
 
 	var buf bytes.Buffer
@@ -28,7 +28,7 @@ func bindataRead(data []byte, name string) ([]byte, error) {
 	clErr := gz.Close()
 
 	if err != nil {
-		return nil, fmt.Errorf("Read %q: %v", name, err)
+		return nil, fmt.Errorf("read %q: %v", name, err)
 	}
 	if clErr != nil {
 		return nil, err
@@ -84,7 +84,7 @@ func slackLnk() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "Slack.lnk", size: 1798, mode: os.FileMode(438), modTime: time.Unix(1547773182, 0)}
+	info := bindataFileInfo{name: "Slack.lnk", size: 1798, mode: os.FileMode(0666), modTime: time.Unix(1547773182, 0)}
 	a := &asset{bytes: bytes, info: info, digest: [32]uint8{0xc5, 0xed, 0x4a, 0x31, 0xef, 0x53, 0x4a, 0x6c, 0x45, 0x4c, 0x6e, 0xed, 0x5, 0x25, 0x87, 0xdc, 0xe3, 0xc, 0xda, 0xed, 0x9, 0x34, 0xcf, 0x33, 0xcd, 0x51, 0xb2, 0xc9, 0xb0, 0x97, 0x9b, 0xef}}
 	return a, nil
 }

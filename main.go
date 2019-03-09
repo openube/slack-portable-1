@@ -5,89 +5,98 @@
 package main
 
 import (
-	_ "github.com/kevinburke/go-bindata"
-	"github.com/portapps/slack-portable/assets"
-
 	"encoding/json"
 	"io/ioutil"
 	"os"
 	"path"
 
+	_ "github.com/kevinburke/go-bindata"
 	. "github.com/portapps/portapps"
+	"github.com/portapps/portapps/pkg/shortcut"
+	"github.com/portapps/portapps/pkg/utl"
+	"github.com/portapps/slack-portable/assets"
+)
+
+var (
+	app *App
 )
 
 func init() {
-	Papp.ID = "slack-portable"
-	Papp.Name = "Slack"
-	Init()
+	var err error
+
+	// Init app
+	if app, err = New("slack-portable", "Slack"); err != nil {
+		Log.Fatal().Err(err).Msg("Cannot initialize application. See log file for more info.")
+	}
 }
 
 func main() {
-	Papp.AppPath = AppPathJoin("app")
-	Papp.DataPath = CreateFolder(AppPathJoin("data"))
+	electronBinPath := utl.PathJoin(app.AppPath, utl.FindElectronAppFolder("app-", app.AppPath))
 
-	electronBinPath := PathJoin(Papp.AppPath, FindElectronAppFolder("app-", Papp.AppPath))
-
-	Papp.Process = PathJoin(Papp.AppPath, "Slack.exe")
-	Papp.Args = nil
-	Papp.WorkingDir = electronBinPath
+	app.Process = utl.PathJoin(electronBinPath, "Slack.exe")
+	app.WorkingDir = electronBinPath
 
 	// Downloads folder
-	downloadsPath := CreateFolder(PathJoin(Papp.Path, "downloads"))
+	downloadsPath := utl.CreateFolder(app.RootPath, "downloads")
 
 	// Update slack settings
-	Log.Info("Update Slack settings...")
-	slackSettingsPath := PathJoin(Papp.DataPath, "storage", "slack-settings")
+	Log.Info().Msg("Update Slack settings...")
+	slackSettingsPath := utl.PathJoin(app.DataPath, "storage", "slack-settings")
 	if _, err := os.Stat(slackSettingsPath); err == nil {
 		rawSettings, err := ioutil.ReadFile(slackSettingsPath)
 		if err == nil {
 			jsonMapSettings := make(map[string]interface{})
-			json.Unmarshal(rawSettings, &jsonMapSettings)
-			Log.Info("Current settings:", jsonMapSettings)
+			if err = json.Unmarshal(rawSettings, &jsonMapSettings); err != nil {
+				Log.Error().Err(err).Msg("Settings unmarshal")
+			}
+			Log.Info().Interface("settings", jsonMapSettings).Msg("Current settings")
 
-			jsonMapSettings["resourcePath"] = PathJoin(electronBinPath, "resources", "app.asar")
+			jsonMapSettings["resourcePath"] = utl.PathJoin(electronBinPath, "resources", "app.asar")
 			jsonMapSettings["PrefSSBFileDownloadPath"] = downloadsPath
 			jsonMapSettings["notificationMethod"] = "html"
-			Log.Info("New settings:", jsonMapSettings)
+			Log.Info().Interface("settings", jsonMapSettings).Msg("New settings")
 
 			jsonSettings, err := json.Marshal(jsonMapSettings)
 			if err != nil {
-				Log.Error("Slack settings marshal:", err)
+				Log.Error().Err(err).Msg("Settings marshal")
 			}
 			err = ioutil.WriteFile(slackSettingsPath, jsonSettings, 0644)
 			if err != nil {
-				Log.Error("Write Slack settings:", err)
+				Log.Error().Err(err).Msg("Write settings")
 			}
 		}
 	} else {
-		Log.Errorf("Slack settings not found in %s", slackSettingsPath)
+		Log.Error().Msgf("Slack settings not found in %s", slackSettingsPath)
 	}
 
 	// Copy default shortcut
-	shortcutPath := path.Join(os.Getenv("APPDATA"), "Microsoft", "Windows", "Start Menu", "Programs", "Slack Portable.lnk")
+	shortcutPath := path.Join(utl.StartMenuPath(), "Slack Portable.lnk")
 	defaultShortcut, err := assets.Asset("Slack.lnk")
 	if err != nil {
-		Log.Error("Cannot load asset Discord.lnk:", err)
+		Log.Error().Err(err).Msg("Cannot load asset Slack.lnk")
 	}
 	err = ioutil.WriteFile(shortcutPath, defaultShortcut, 0644)
 	if err != nil {
-		Log.Error("Cannot write default shortcut:", err)
+		Log.Error().Err(err).Msg("Cannot write default shortcut")
 	}
 
 	// Update default shortcut
-	err = CreateShortcut(WindowsShortcut{
+	err = shortcut.Create(shortcut.Shortcut{
 		ShortcutPath:     shortcutPath,
-		TargetPath:       Papp.Process,
-		Arguments:        WindowsShortcutProperty{Clear: true},
-		Description:      WindowsShortcutProperty{Value: "Slack Portable by Portapps"},
-		IconLocation:     WindowsShortcutProperty{Value: Papp.Process},
-		WorkingDirectory: WindowsShortcutProperty{Value: Papp.AppPath},
+		TargetPath:       app.Process,
+		Arguments:        shortcut.Property{Clear: true},
+		Description:      shortcut.Property{Value: "Slack Portable by Portapps"},
+		IconLocation:     shortcut.Property{Value: app.Process},
+		WorkingDirectory: shortcut.Property{Value: app.AppPath},
 	})
 	if err != nil {
-		Log.Error("Cannot create shortcut:", err)
+		Log.Error().Err(err).Msg("Cannot create shortcut")
 	}
+	defer func() {
+		if err := os.Remove(shortcutPath); err != nil {
+			Log.Error().Err(err).Msg("Cannot remove shortcut")
+		}
+	}()
 
-	Launch(os.Args[1:])
-
-	_ = os.Remove(shortcutPath)
+	app.Launch(os.Args[1:])
 }
