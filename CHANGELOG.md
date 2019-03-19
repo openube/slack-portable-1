@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.3.8-18 (2019/03/19)
+
+* Create data folder at first launch
+* Portapps 1.20.3
+
 ## 3.3.8-17 (2019/03/09)
 
 * Upgrade to Slack 3.3.8
