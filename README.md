@@ -12,13 +12,15 @@
 
 ## Notice of Non-Affiliation and Disclaimer
 
-Portapps is not affiliated, associated, authorized, endorsed by, or in any way officially connected with Slack, or any of its subsidiaries or its affiliates. The official Slack website can be found at https://slack.com.
+Portapps is not affiliated, associated, authorized, endorsed by, or in any way officially connected with Slack™, or any of its subsidiaries or its affiliates.
 
-The name Slack® as well as related names, marks, emblems and images are registered trademarks of their respective owners.
+The official Slack™ website can be found at https://slack.com.
+
+The name Slack™ as well as related names, marks, emblems and images are registered trademarks of their respective owners.
 
 ## About
 
-Slack portable app made with 🚀 [Portapps](https://portapps.io).<br />
+Slack™ portable app made with 🚀 [Portapps](https://portapps.io).<br />
 Documentation and downloads can be found on https://portapps.io/app/slack-portable/
 
 ## How can I help ?
