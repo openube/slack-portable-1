@@ -2,7 +2,6 @@
 **More info on [Slack portable page](https://portapps.io/app/slack-portable/)**.
 
 <p align="center">
-  <a href="https://travis-ci.com/portapps/slack-portable"><img src="https://img.shields.io/travis/com/portapps/slack-portable/master.svg?style=flat-square" alt="Build Status"></a>
   <a href="https://github.com/portapps/portapps"><img src="https://img.shields.io/badge/portapps-1.24.1-479fdb.svg?style=flat-square" alt="Portapps version"></a>
   <a href="https://goreportcard.com/report/github.com/portapps/slack-portable"><img src="https://goreportcard.com/badge/github.com/portapps/slack-portable?style=flat-square" alt="Go Report"></a>
   <a href="https://www.codacy.com/app/portapps/slack-portable"><img src="https://img.shields.io/codacy/grade/8beee2b3463842f6ad27da362666e75c.svg?style=flat-square" alt="Code Quality"></a>
