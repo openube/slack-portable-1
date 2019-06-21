@@ -1,8 +1,7 @@
-<p align="center"><a href="https://portapps.io/app/slack-portable/" target="_blank"><img width="100" src="https://github.com/portapps/slack-portable/blob/master/res/papp.png"></a></p>
+:warning: **Slack portable has been discontinued.**<br />
+**More info on [Slack portable page](https://portapps.io/app/slack-portable/)**.
 
 <p align="center">
-  <a href="https://portapps.io/app/slack-portable/#download"><img src="https://img.shields.io/github/release/portapps/slack-portable.svg?style=flat-square" alt="GitHub release"></a>
-  <a href="https://portapps.io/app/slack-portable/#download"><img src="https://img.shields.io/github/downloads/portapps/slack-portable/total.svg?style=flat-square" alt="Total downloads"></a>
   <a href="https://travis-ci.com/portapps/slack-portable"><img src="https://img.shields.io/travis/com/portapps/slack-portable/master.svg?style=flat-square" alt="Build Status"></a>
   <a href="https://github.com/portapps/portapps"><img src="https://img.shields.io/badge/portapps-1.24.1-479fdb.svg?style=flat-square" alt="Portapps version"></a>
   <a href="https://goreportcard.com/report/github.com/portapps/slack-portable"><img src="https://goreportcard.com/badge/github.com/portapps/slack-portable?style=flat-square" alt="Go Report"></a>
