@@ -1,6 +1,3 @@
-:warning: **Slack portable has been discontinued.**<br />
-**More info on [Slack portable page](https://portapps.io/app/slack-portable/)**.
-
 <p align="center">
   <a href="https://github.com/portapps/portapps"><img src="https://img.shields.io/badge/portapps-1.25.0-479fdb.svg?style=flat-square" alt="Portapps version"></a>
   <a href="https://goreportcard.com/report/github.com/portapps/slack-portable"><img src="https://goreportcard.com/badge/github.com/portapps/slack-portable?style=flat-square" alt="Go Report"></a>
