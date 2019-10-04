@@ -3,6 +3,7 @@
 ## 4.1.0-27 (2019/10/04)
 
 * Slack 4.1.0
+* Slack is now based on Electron 6
 * Portapps 1.27.0
 
 ## 4.0.2-26 (2019/08/20)

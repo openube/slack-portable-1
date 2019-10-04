@@ -34,6 +34,9 @@ func main() {
 	electronBinPath := utl.PathJoin(app.AppPath, utl.FindElectronAppFolder("app-", app.AppPath))
 
 	app.Process = utl.PathJoin(electronBinPath, "Slack.exe")
+	app.Args = []string{
+		"--user-data-dir=" + app.DataPath,
+	}
 	app.WorkingDir = electronBinPath
 
 	// Downloads folder
@@ -97,6 +100,8 @@ func main() {
 			Log.Error().Err(err).Msg("Cannot remove shortcut")
 		}
 	}()
+
+	utl.OverrideEnv("SLACK_NO_AUTO_UPDATES", "true")
 
 	app.Launch(os.Args[1:])
 }
