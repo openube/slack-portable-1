@@ -101,7 +101,31 @@ func main() {
 		}
 	}()
 
+	// Disable auto updates
 	utl.OverrideEnv("SLACK_NO_AUTO_UPDATES", "true")
+
+	// Update deep link
+	f, err := os.OpenFile(utl.PathJoin(electronBinPath, "resources", "app", "dist", "main.js"),
+		os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	if err != nil {
+		Log.Error().Err(err).Msg("Cannot open main.js")
+	}
+	defer f.Close()
+	if _, err := f.WriteString(` require('./portapps.js');`); err != nil {
+		Log.Error().Err(err).Msg("Cannot write to main.js")
+	}
+	err = utl.WriteToFile(utl.PathJoin(electronBinPath, "resources", "app", "dist", "portapps.js"), `"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const path = require("path");
+const { app } = require('electron');
+app.on('browser-window-created', () => {
+    if (app.listenerCount('browser-window-created') <= 10) {
+        app.setAsDefaultProtocolClient('slack', process.execPath, ["--user-data-dir="+path.join(path.dirname(process.execPath), '..', '..', 'data')]);
+    }
+});`)
+	if err != nil {
+		Log.Error().Err(err).Msg("Cannot write to portapps.js")
+	}
 
 	app.Launch(os.Args[1:])
 }
