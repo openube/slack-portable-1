@@ -1,8 +1,14 @@
 # Changelog
 
+## 4.1.1-29 (2019/10/10)
+
+* Slack 4.1.1
+* Fix issue with deep linking
+
 ## 4.1.0-28 (2019/10/07)
 
 * Fix deep linking
+* Portapps 1.28.0
 
 ## 4.1.0-27 (2019/10/04)
 
