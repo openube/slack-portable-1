@@ -9,6 +9,7 @@ import (
 	"io/ioutil"
 	"os"
 	"path"
+	"strings"
 
 	. "github.com/portapps/portapps"
 	"github.com/portapps/portapps/pkg/shortcut"
@@ -105,14 +106,15 @@ func main() {
 	utl.OverrideEnv("SLACK_NO_AUTO_UPDATES", "true")
 
 	// Update deep link
-	f, err := os.OpenFile(utl.PathJoin(electronBinPath, "resources", "app", "dist", "main.js"),
-		os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
-	if err != nil {
-		Log.Error().Err(err).Msg("Cannot open main.js")
-	}
-	defer f.Close()
-	if _, err := f.WriteString(` require('./portapps.js');`); err != nil {
-		Log.Error().Err(err).Msg("Cannot write to main.js")
+	mainJs := utl.PathJoin(electronBinPath, "resources", "app", "dist", "main.js")
+	contains, err := FileContains(mainJs, `require('./portapps.js');`)
+	if !contains && err == nil {
+		Log.Info().Msgf("Updating content of %s", mainJs)
+		if err := AppendToFile(mainJs, ` require('./portapps.js');`); err != nil {
+			Log.Error().Err(err).Msgf("Cannot append content to %s", mainJs)
+		}
+	} else if err != nil {
+		Log.Error().Err(err).Msgf("Cannot check %s", mainJs)
 	}
 	err = utl.WriteToFile(utl.PathJoin(electronBinPath, "resources", "app", "dist", "portapps.js"), `"use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -128,4 +130,26 @@ app.on('browser-window-created', () => {
 	}
 
 	app.Launch(os.Args[1:])
+}
+
+// AppendToFile appends content to a file
+func AppendToFile(name string, content string) error {
+	f, err := os.OpenFile(name, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	if err != nil {
+		return err
+	}
+	defer f.Close()
+	if _, err := f.WriteString(content); err != nil {
+		return err
+	}
+	return nil
+}
+
+// FileContains reports if a file contains text
+func FileContains(name string, text string) (bool, error) {
+	b, err := ioutil.ReadFile(name)
+	if err != nil {
+		return false, err
+	}
+	return strings.Contains(string(b), text), nil
 }
