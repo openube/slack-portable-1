@@ -1,7 +1,7 @@
 //go:generate go install -v github.com/kevinburke/go-bindata/go-bindata
 //go:generate go-bindata -prefix res/ -pkg assets -o assets/assets.go res/Slack.lnk
 //go:generate go install -v github.com/josephspurrier/goversioninfo/cmd/goversioninfo
-//go:generate goversioninfo -icon=res/papp.ico
+//go:generate goversioninfo -icon=res/papp.ico -manifest=res/papp.manifest
 package main
 
 import (
@@ -9,7 +9,6 @@ import (
 	"io/ioutil"
 	"os"
 	"path"
-	"strings"
 
 	. "github.com/portapps/portapps"
 	"github.com/portapps/portapps/pkg/shortcut"
@@ -107,10 +106,10 @@ func main() {
 
 	// Update deep link
 	mainJs := utl.PathJoin(electronBinPath, "resources", "app", "dist", "main.js")
-	contains, err := FileContains(mainJs, `require('./portapps.js');`)
+	contains, err := utl.FileContains(mainJs, `require('./portapps.js');`)
 	if !contains && err == nil {
 		Log.Info().Msgf("Updating content of %s", mainJs)
-		if err := AppendToFile(mainJs, ` require('./portapps.js');`); err != nil {
+		if err := utl.AppendToFile(mainJs, ` require('./portapps.js');`); err != nil {
 			Log.Error().Err(err).Msgf("Cannot append content to %s", mainJs)
 		}
 	} else if err != nil {
@@ -130,26 +129,4 @@ app.on('browser-window-created', () => {
 	}
 
 	app.Launch(os.Args[1:])
-}
-
-// AppendToFile appends content to a file
-func AppendToFile(name string, content string) error {
-	f, err := os.OpenFile(name, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
-	if err != nil {
-		return err
-	}
-	defer f.Close()
-	if _, err := f.WriteString(content); err != nil {
-		return err
-	}
-	return nil
-}
-
-// FileContains reports if a file contains text
-func FileContains(name string, text string) (bool, error) {
-	b, err := ioutil.ReadFile(name)
-	if err != nil {
-		return false, err
-	}
-	return strings.Contains(string(b), text), nil
 }
