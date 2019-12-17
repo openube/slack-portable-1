@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.3.0-32 (2019/12/16)
+
+* Slack 4.3.0
+* Add `cleanup` config
+* Portapps 1.31.0
+
 ## 4.2.0-31 (2019/11/26)
 
 * Slack 4.2.0
