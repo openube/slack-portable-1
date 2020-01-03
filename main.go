@@ -124,7 +124,7 @@ func main() {
 	utl.OverrideEnv("SLACK_NO_AUTO_UPDATES", "true")
 
 	// Update deep link
-	mainJs := utl.PathJoin(electronBinPath, "resources", "app", "dist", "main.js")
+	mainJs := utl.PathJoin(electronBinPath, "resources", "app", "dist", "main.bundle.js")
 	contains, err := utl.FileContains(mainJs, `require('./portapps.js');`)
 	if !contains && err == nil {
 		Log.Info().Msgf("Updating content of %s", mainJs)
