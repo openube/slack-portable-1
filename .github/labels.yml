@@ -11,7 +11,6 @@
   name: ":bug: bug"
   color: "b60205"
   description: ""
-  from_name: "bug"
 - # dependencies
   name: ":game_die: dependencies"
   color: "0366d6"
@@ -28,7 +27,6 @@
   name: ":sparkles: enhancement"
   color: "0054ca"
   description: ""
-  from_name: "enhancement"
 - # feature request
   name: ":bulb: feature request"
   color: "0e8a16"
